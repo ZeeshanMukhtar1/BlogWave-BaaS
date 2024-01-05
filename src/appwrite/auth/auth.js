@@ -84,4 +84,4 @@ export class AuthService {
 const authService = new AuthService();
 
 // Exporting the instantiated AuthService for use in other parts of the application
-export default AuthService;
+export default authService;
