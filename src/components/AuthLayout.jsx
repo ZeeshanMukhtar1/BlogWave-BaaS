@@ -1,32 +1,30 @@
-import React, {useEffect, useState} from 'react'
-import {useSelector} from 'react-redux'
-import {useNavigate} from 'react-router-dom'
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
-export default function Protected({children, authentication = true}) {
+// Protected component for handling authentication checks
+export default function Protected({ children, authentication = true }) {
+  // React Router hook for navigation
+  const navigate = useNavigate();
+  const [loader, setLoader] = useState(true);
 
-    const navigate = useNavigate()
-    const [loader, setLoader] = useState(true)
-    const authStatus = useSelector(state => state.auth.status)
+  // Redux selector to get the authentication status from the store
+  const authStatus = useSelector((state) => state.auth.status);
 
-    useEffect(() => {
-        //TODO: make it more easy to understand
+  // useEffect hook to perform actions on component mount and when authStatus changes
+  useEffect(() => {
+    // Check if authentication is required and user is not authenticated
+    if (authentication && !authStatus) {
+      // Redirect to the login page
+      navigate('/login');
+    } else if (!authentication && authStatus) {
+      // Redirect to the home page if authentication is not required and user is authenticated
+      navigate('/');
+    }
 
-        // if (authStatus ===true){
-        //     navigate("/")
-        // } else if (authStatus === false) {
-        //     navigate("/login")
-        // }
-        
-        //let authValue = authStatus === true ? true : false
+    // Set loader to false once authentication checks are complete
+    setLoader(false);
+  }, [authStatus, navigate, authentication]);
 
-        if(authentication && authStatus !== authentication){
-            navigate("/login")
-        } else if(!authentication && authStatus !== authentication){
-            navigate("/")
-        }
-        setLoader(false)
-    }, [authStatus, navigate, authentication])
-
-  return loader ? <h1>Loading...</h1> : <>{children}</>
+  return loader ? <h1>Loading...</h1> : <>{children}</>;
 }
-

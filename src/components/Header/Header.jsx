@@ -5,7 +5,9 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 function Header() {
+  // getting auth status from redux store
   const authStatus = useSelector((state) => state.auth.status);
+  // for navigation
   const navigate = useNavigate();
 
   const navItems = [
@@ -17,7 +19,7 @@ function Header() {
     {
       name: 'Login',
       slug: '/login',
-      active: !authStatus,
+      active: !authStatus, // if user is not logged in then show login link
     },
     {
       name: 'Signup',
@@ -27,7 +29,7 @@ function Header() {
     {
       name: 'All Posts',
       slug: '/all-posts',
-      active: authStatus,
+      active: authStatus, // if user is logged in then show all posts link
     },
     {
       name: 'Add Post',

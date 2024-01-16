@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../Logo';
 
+// it will be static footer for all pages we aren't making it more interactive and the links won't work
+
 function Footer() {
   return (
     <section

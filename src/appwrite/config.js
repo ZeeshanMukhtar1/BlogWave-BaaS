@@ -1,3 +1,4 @@
+// imports from appwrite
 import conf from '../conf/conf.js';
 import { Client, ID, Databases, Storage, Query } from 'appwrite';
 
@@ -14,6 +15,7 @@ export class Service {
     this.bucket = new Storage(this.client);
   }
 
+  // create post service method
   async createPost({ title, slug, content, featuredImage, status, userId }) {
     try {
       return await this.databases.createDocument(
@@ -34,6 +36,8 @@ export class Service {
     }
   }
 
+  // / update post service method
+
   async updatePost(slug, { title, content, featuredImage, status }) {
     try {
       return await this.databases.updateDocument(
@@ -52,6 +56,7 @@ export class Service {
     }
   }
 
+  // delete post service method
   async deletePost(slug) {
     try {
       await this.databases.deleteDocument(
@@ -66,6 +71,7 @@ export class Service {
     }
   }
 
+  // get post service method
   async getPost(slug) {
     try {
       return await this.databases.getDocument(
@@ -79,6 +85,7 @@ export class Service {
     }
   }
 
+  // get posts service method
   async getPosts(queries = [Query.equal('status', 'active')]) {
     try {
       return await this.databases.listDocuments(
@@ -92,7 +99,7 @@ export class Service {
     }
   }
 
-  // file upload service
+  // upload file service method , storing the image in storage bucket
 
   async uploadFile(file) {
     try {
@@ -107,6 +114,7 @@ export class Service {
     }
   }
 
+  // deleting the file from the storage bucket
   async deleteFile(fileId) {
     try {
       await this.bucket.deleteFile(conf.appwriteBucketId, fileId);
@@ -117,6 +125,7 @@ export class Service {
     }
   }
 
+  // getting the file preview from the storage bucket which is in the compressed format and we can use it in the frontend to show the preview of the image more faster
   getFilePreview(fileId) {
     return this.bucket.getFilePreview(conf.appwriteBucketId, fileId);
   }
