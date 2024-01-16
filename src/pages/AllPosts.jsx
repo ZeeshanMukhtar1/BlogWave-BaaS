@@ -1,28 +1,45 @@
-import React, {useState, useEffect} from 'react'
-import { Container, PostCard } from '../components'
-import appwriteService from "../appwrite/config";
+import React, { useState, useEffect } from 'react';
+import { Container, PostCard } from '../components';
+import appwriteService from '../appwrite/config';
 
 function AllPosts() {
-    const [posts, setPosts] = useState([])
-    useEffect(() => {}, [])
-    appwriteService.getPosts([]).then((posts) => {
-        if (posts) {
-            setPosts(posts.documents)
-        }
-    })
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    // Fetch posts when the component mounts
+    appwriteService.getPosts([]).then((result) => {
+      if (result) {
+        setPosts(result.documents);
+      }
+    });
+  }, []);
+
   return (
-    <div className='w-full py-8'>
-        <Container>
-            <div className='flex flex-wrap'>
-                {posts.map((post) => (
-                    <div key={post.$id} className='p-2 w-1/4'>
-                        <PostCard {...post} />
-                    </div>
-                ))}
-            </div>
-            </Container>
+    <div className="w-full py-8">
+      <Container>
+        {posts.length === 0 ? (
+          <div className="flex flex-col items-center justify-center h-full py-16">
+            <h1 className="text-4xl font-bold mb-4 text-center">
+              404 - No Posts Found
+            </h1>
+            <p className="text-lg mb-8 text-gray-600">
+              It seems there are no posts available. Users might not have posted
+              anything yet.
+            </p>
+            {/* You can add additional content or links here */}
+          </div>
+        ) : (
+          <div className="flex flex-wrap">
+            {posts.map((post) => (
+              <div key={post.$id} className="p-2 w-1/4">
+                <PostCard {...post} />
+              </div>
+            ))}
+          </div>
+        )}
+      </Container>
     </div>
-  )
+  );
 }
 
-export default AllPosts
+export default AllPosts;
