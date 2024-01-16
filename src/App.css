@@ -18,10 +18,26 @@ body {
 }
 
 
-.card {
-  padding: 2em;
+/* scrollbar */
+body {
+  --sb-track-color: #232E33;
+  --sb-thumb-color: #6b70af;
+  --sb-size: 7px;
+
+  scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
 }
 
-.read-the-docs {
-  color: #888;
+body::-webkit-scrollbar {
+  width: var(--sb-size)
+}
+
+body::-webkit-scrollbar-track {
+  background: var(--sb-track-color);
+  border-radius: 12px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color);
+  border-radius: 12px;
+
 }
