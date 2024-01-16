@@ -15,14 +15,17 @@ function Home() {
   }, []);
 
   return (
-    <div className="w-full py-8">
+    <div
+      style={{ backgroundColor: 'var(--bg-color)', color: 'var(--text-color)' }}
+      className="w-full py-8"
+    >
       <Container>
         {posts.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-full py-16">
-            <h1 className="text-4xl font-bold mb-4 text-center">
+            <h1 className="mb-4 text-4xl font-bold text-center">
               Explore the World of Posts
             </h1>
-            <p className="text-lg mb-8 text-gray-600">
+            <p className="mb-8 text-lg text-white">
               Log in to read and discover amazing posts. If you don't have an
               account, you can{' '}
               <Link to="/signup" className="text-primary hover:underline">
@@ -36,7 +39,7 @@ function Home() {
         ) : (
           <div className="flex flex-wrap">
             {posts.map((post) => (
-              <div key={post.$id} className="p-2 w-1/4">
+              <div key={post.$id} className="w-1/4 p-2">
                 <PostCard {...post} />
               </div>
             ))}

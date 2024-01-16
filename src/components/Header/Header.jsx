@@ -37,7 +37,10 @@ function Header() {
   ];
 
   return (
-    <header className="py-3 shadow bg-blue-500">
+    <header
+      style={{ backgroundColor: 'var(--bg-color)', color: 'var(--text-color)' }}
+      className="py-3 shadow"
+    >
       <Container>
         <nav className="flex items-center justify-between">
           <div className="mr-4">
@@ -52,7 +55,7 @@ function Header() {
                   <li key={item.name}>
                     <button
                       onClick={() => navigate(item.slug)}
-                      className="px-4 py-2 transition duration-200 bg-white text-blue-500 rounded-full hover:bg-blue-100 focus:outline-none focus:border-none focus:ring-2 focus:ring-blue-500"
+                      className="px-4 py-2 text-blue-500 transition duration-200 bg-white rounded-full hover:bg-blue-100 focus:outline-none focus:border-none focus:ring-2 focus:ring-blue-500"
                     >
                       {item.name}
                     </button>
